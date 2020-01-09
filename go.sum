@@ -1,3 +1,5 @@
+github.com/go-bindata/go-bindata v3.1.2+incompatible h1:5vjJMVhowQdPzjE1LdxyFF7YFTXg5IgGVW4gBr5IbvE=
+github.com/go-bindata/go-bindata v3.1.2+incompatible/go.mod h1:xK8Dsgwmeed+BBsSy2XTopBn/8uK2HWuGSnA11C3Joo=
 github.com/kyroy/kdtree v0.0.0-20180804211234-f5d74e8182c6 h1:VtmTBePeSk7wPfC3DxHzUC8GPPhxYLMgrjq0pWl7A84=
 github.com/kyroy/kdtree v0.0.0-20180804211234-f5d74e8182c6/go.mod h1:MvFn9gdeSNTF/MPLp9rvAkoyqGo2o0q0ZqDrHtkoVfA=
 github.com/kyroy/priority-queue v0.0.0-20180327160706-6e21825e7e0c h1:1c7+XOOGQ19cXjZ1Ss/irljQxgPvb+8z+jNEprCXl20=

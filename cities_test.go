@@ -4,8 +4,6 @@ import (
 	"testing"
 )
 
-const rg_cities_file = "rg_cities.csv"
-
 func expect(t *testing.T, provided, expected string) {
 	if provided != expected {
 		t.Errorf("Expected %s, got %s", expected, provided)
@@ -13,7 +11,7 @@ func expect(t *testing.T, provided, expected string) {
 }
 
 func TestSomeCities(t *testing.T) {
-	db, err := CreateDBFromCSVFile(rg_cities_file)
+	db, err := CreateDBFromAsset()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -26,7 +24,7 @@ func TestSomeCities(t *testing.T) {
 }
 
 func BenchmarkSearch(b *testing.B) {
-	db, err := CreateDBFromCSVFile(rg_cities_file)
+	db, err := CreateDBFromAsset()
 	if err != nil {
 		b.Fatal(err)
 	}

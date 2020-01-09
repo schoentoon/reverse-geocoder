@@ -1,6 +1,9 @@
+//go:generate python3 extract_cities.py
+//go:generate go-bindata -pkg reverse_geocoder -o bindata.go rg_cities.csv
 package reverse_geocoder
 
 import (
+	"bytes"
 	"encoding/csv"
 	"errors"
 	"fmt"
@@ -8,6 +11,7 @@ import (
 	"os"
 	"strconv"
 
+	_ "github.com/go-bindata/go-bindata"
 	kdtree "github.com/kyroy/kdtree"
 	"github.com/kyroy/kdtree/points"
 )
@@ -42,6 +46,18 @@ func parsePoint(in []string) (*points.Point, error) {
 	return points.NewPoint([]float64{lat, lon}, city), nil
 }
 
+// CreateDBFromAsset this will create our database from our included copy of rg_cities.csv
+func CreateDBFromAsset() (*DB, error) {
+	data, err := Asset("rg_cities.csv")
+	if err != nil {
+		return nil, err
+	}
+	buffer := bytes.NewReader(data)
+
+	return CreateDBFromCSV(csv.NewReader(buffer))
+}
+
+// CreateDBFromCSVFile creates the database from a specified csv file
 func CreateDBFromCSVFile(file string) (*DB, error) {
 	f, err := os.Open(file)
 	if err != nil {
@@ -51,6 +67,7 @@ func CreateDBFromCSVFile(file string) (*DB, error) {
 	return CreateDBFromCSV(csv.NewReader(f))
 }
 
+// CreateDBFromCSV creates the database directly from a *csv.Reader
 func CreateDBFromCSV(reader *csv.Reader) (*DB, error) {
 	out := &DB{
 		tree: kdtree.New(nil),
@@ -88,7 +105,7 @@ func (d *DB) Search(lat, lon float64) *City {
 }
 
 func ExampleF_Search() {
-	db, err := CreateDBFromCSVFile("rg_cities.csv")
+	db, err := CreateDBFromAsset()
 	if err != nil {
 		panic(err)
 	}

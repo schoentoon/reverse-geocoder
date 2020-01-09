@@ -4,18 +4,11 @@ import (
 	"bytes"
 	"encoding/csv"
 	"io"
-	"io/ioutil"
-	"os"
 	"testing"
 )
 
 func BenchmarkDBCreationFromCSV(b *testing.B) {
-	// we first just read the entire csv into memory
-	f, err := os.Open(rg_cities_file)
-	if err != nil {
-		b.Fatal(err)
-	}
-	data, err := ioutil.ReadAll(f)
+	data, err := Asset("rg_cities.csv")
 	if err != nil {
 		b.Fatal(err)
 	}
