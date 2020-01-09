@@ -1,7 +1,6 @@
 package reverse_geocoder
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -24,19 +23,6 @@ func TestSomeCities(t *testing.T) {
 
 	expect(t, ams.Name, "Amsterdam")
 	expect(t, ams.CC, "NL")
-}
-
-func ExampleSearch() {
-	db, err := CreateDBFromCSVFile(rg_cities_file)
-	if err != nil {
-		panic(err)
-	}
-
-	// These coordinates point to Amsterdam Dam Square
-	ams := db.Search(52.3729306, 4.8917547)
-
-	fmt.Printf("%s", ams.Name)
-	// Output: Amsterdam
 }
 
 func BenchmarkSearch(b *testing.B) {

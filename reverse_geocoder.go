@@ -3,6 +3,7 @@ package reverse_geocoder
 import (
 	"encoding/csv"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"strconv"
@@ -84,4 +85,17 @@ func (d *DB) Search(lat, lon float64) *City {
 	res := out[0].(*points.Point)
 
 	return res.Data.(*City)
+}
+
+func ExampleF_Search() {
+	db, err := CreateDBFromCSVFile("rg_cities.csv")
+	if err != nil {
+		panic(err)
+	}
+
+	// These coordinates point to Amsterdam Dam Square
+	ams := db.Search(52.3729306, 4.8917547)
+
+	fmt.Printf("%s", ams.Name)
+	// Output: Amsterdam
 }
